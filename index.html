@@ -5,6 +5,48 @@
     <title>Title</title>
 </head>
 <body>
+<style>
+    img {
+        border: 1px solid white;
+        width: 100px;
+        height: 100px;
+    }
+    img:hover {
+        border: 1px solid blue;
+        width: 100px;
+        height: 100px;
+    }
+</style>
+<img id="img" src="328999434_586853566624705_995745063158378059_n.jpg" style="display:none;" onclick="point()">
+Minutes: <b id="minutes"></b>
+Seconds: <b id="seconds"></b>
+ <b id="point"></b>
+<script>
+    let countDownTarget = new Date().getTime() + 10 * 60 * 1000;
+    let count = 10;
+    setTimeout(function () {
+        let img = document.getElementById('img');
+        img.style.display = 'block';
+    },10000)
+    function showClock(target) {
+        const distance = target - new Date().getTime();
+        const mins = distance < 0 ? 0: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const secs = distance < 0 ? 0: Math.floor((distance % (1000 * 60)) / 1000);
+        document.getElementById("minutes").innerHTML = mins;
+        document.getElementById("seconds").innerHTML = secs;
+    }
+    showClock(countDownTarget);
+    let x = setInterval(function() {
+        showClock(countDownTarget);
+        if (countDownTarget - new Date().getTime() < 0) {
+            clearInterval(x);
+        }
+    }, 1000);
 
+    function point() {
+        document.getElementById('point').innerHTML ="Point : "+ count.toLocaleString();
+        count = count + 10;
+    }
+</script>
 </body>
 </html>
